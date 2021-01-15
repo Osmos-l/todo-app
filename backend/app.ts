@@ -3,6 +3,8 @@ import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 import { createServer, Server } from 'http';
 
+import { authRoutes, itemRoutes } from './routes/index'
+
 export default class App {
     private port: Number;
     private app: express.Application = new express();
@@ -15,12 +17,12 @@ export default class App {
         this.connectMongoose();
         this.routes();
 
-        //app.use( '/api/stuff', stuffRoutes );
-        //app.use( '/api/auth', userRoutes );
+        //this.app.use( '/api', authRoutes );
+        this.app.use( '/api', itemRoutes );
     }
 
     private connectMongoose(): void {
-        mongoose.connect('mongodb+srv://admin:09igZo1wCKFssfei@cluster0.8mq8k.mongodb.net/<dbname>?retryWrites=true&w=majority',
+        mongoose.connect('mongodb+srv://admin:?@cluster0.8mq8k.mongodb.net/<dbname>?retryWrites=true&w=majority',
         { useNewUrlParser: true,
             useUnifiedTopology: true })
         .then(() => console.log('Connexion à MongoDB réussie !'))
