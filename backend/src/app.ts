@@ -3,9 +3,10 @@ import express from 'express'
 import * as bodyParser from 'body-parser'
 //import * as cookieParser from 'cookie-parser'
 //import * as socketIo from 'socket.io'
+import { connect } from 'mongoose'
 import { createServer, Server } from 'http'
 
-require('dotenv').config()
+var config = require('../appconfig.json');
 
 import {
     AuthRoutes
@@ -24,9 +25,10 @@ export default class App {
   constructor(port: number) {
     this.port = port
     this.server = createServer(this.app)
+
     this.config()
-    this.createServer()
     this.routes()
+    this.connectBDD()
 
     this.authRoutes.routes( this.router )
   }
@@ -39,11 +41,22 @@ export default class App {
   }
 
   private routes(): void {
-    this.app.use('/', this.router)
+    this.app.use( ( req, res, next ) => {
+      res.setHeader( 'Access-Control-Allow-Origin', '*' );
+      res.setHeader( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization' );
+      res.setHeader( 'Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS' );
+      next();
+    } );
+
   }
 
-  private createServer(): void {
-    this.server = createServer(this.app)
+  private connectBDD(): void {
+    connect('mongodb+srv://'+ config.mongoose.login +':'+config.mongoose.password+'@cluster0.8mq8k.mongodb.net/<dbname>?retryWrites=true&w=majority',
+    { useNewUrlParser: true,
+      useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
   }
 
   public run(): void {
