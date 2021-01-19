@@ -13,6 +13,12 @@ import {
 } 
 from './routes'
 
+import {
+  UserModel,
+  UserItemModel
+}
+from './models'
+
 export default class App {
   private port: number
   private io: any
@@ -21,6 +27,9 @@ export default class App {
   public router: express.Router = express.Router()
   public authRoutes: AuthRoutes = new AuthRoutes()
 
+  public userModel: UserModel = new UserModel()
+  public userItemModel: UserItemModel = new UserItemModel()
+
 
   constructor(port: number) {
     this.port = port
@@ -28,7 +37,7 @@ export default class App {
 
     this.config()
     this.routes()
-    this.connectBDD()
+    this.initBDD()
 
     this.authRoutes.routes( this.router )
   }
@@ -50,6 +59,11 @@ export default class App {
 
   }
 
+  private initBDD(): void {
+    this.connectBDD()
+    this.modelBDD()
+  }
+
   private connectBDD(): void {
     connect('mongodb+srv://'+ config.mongoose.login +':'+config.mongoose.password+'@cluster0.8mq8k.mongodb.net/<dbname>?retryWrites=true&w=majority',
     { useNewUrlParser: true,
@@ -57,6 +71,11 @@ export default class App {
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+  }
+
+  private modelBDD(): void {
+    this.userModel.generateSchema()
+    this.userItemModel.generateSchema()
   }
 
   public run(): void {
