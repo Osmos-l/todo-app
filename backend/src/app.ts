@@ -1,12 +1,9 @@
 import express from 'express'
-//import * as cors from 'cors'
 import * as bodyParser from 'body-parser'
-//import * as cookieParser from 'cookie-parser'
-//import * as socketIo from 'socket.io'
 import { connect } from 'mongoose'
 import { createServer, Server } from 'http'
 
-var config = require('../appconfig.json');
+const config = require('../appconfig.json');
 
 import {
     AuthRoutes
@@ -30,7 +27,6 @@ export default class App {
   public userModel: UserModel = new UserModel()
   public userItemModel: UserItemModel = new UserItemModel()
 
-
   constructor(port: number) {
     this.port = port
     this.server = createServer(this.app)
@@ -43,8 +39,6 @@ export default class App {
   }
 
   private config(): void {
-    //this.app.use(cors())
-    //this.app.use(cookieParser())
     this.app.use(bodyParser.json())
     this.app.use(bodyParser.urlencoded({ extended: false }))
   }

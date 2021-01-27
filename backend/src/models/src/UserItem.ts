@@ -7,6 +7,7 @@ export default class UserItemModel {
     public generateSchema(): void {
         this.userItemSchema = new mongoose.Schema( {
             title: { type: String, required: true },
+            finished: { type: Boolean, required: true, default: false },
             userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 
         }, {
@@ -14,5 +15,7 @@ export default class UserItemModel {
         } )
 
         this.userItemSchema.plugin( uniqueValidator )
+
+        mongoose.model( "UserItems", this.userItemSchema )
     }
 }

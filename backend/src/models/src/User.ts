@@ -11,5 +11,7 @@ export default class UserModel {
         } )
 
         this.userSchema.plugin( uniqueValidator )
+
+        mongoose.model( "Users", this.userSchema )
     }
 }
