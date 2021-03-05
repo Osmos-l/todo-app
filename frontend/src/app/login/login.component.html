@@ -1,0 +1,22 @@
+<div *ngIf="error">
+    Bad credentials
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+  
+    <label>
+        Email:
+        <input type="text" 
+                formControlName="username" 
+                required>
+    </label>
+
+    <label>
+        Password:
+        <input type="password" 
+                formControlName="password" 
+                required>
+    </label>
+    <br />
+    <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+</form>
