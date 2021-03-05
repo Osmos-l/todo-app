@@ -1,5 +1,5 @@
 <div *ngIf="error">
-    Bad credentials
+    {{ error }}
 </div>
 
 <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
