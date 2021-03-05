@@ -1,0 +1,8 @@
+{
+    "bdd": {
+        "username": "admin",
+        "password": "qfaYqi6BHQFiuFZN",
+        "name": "todoapp"
+    },
+    "token": "SECRET_TOKEN_TODO_APPs"
+}

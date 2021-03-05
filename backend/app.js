@@ -13,7 +13,7 @@ const userRoutes = require( './routes/user' );
  */
 
 const app = express();
-
+console.log( 'mongodb+srv://'+ config.bdd.username +':'+ config.bdd.password +'@cluster0.8mq8k.mongodb.net/'+ config.bdd.name +'?retryWrites=true&w=majority' );
 mongoose.connect('mongodb+srv://'+ config.bdd.username +':'+ config.bdd.password +'@cluster0.8mq8k.mongodb.net/'+ config.bdd.name +'?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
