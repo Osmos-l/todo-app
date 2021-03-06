@@ -1,3 +1,5 @@
-<p>dashboard works!</p>
+<h2>Welcome to your personnal dashboard !</h2>
+<app-task-list [tasks]="tasks" ></app-task-list>
 
+<a routerLink="/dashboard/task/new">New todotask</a>
 <button (click)="logout()">Logout</button>

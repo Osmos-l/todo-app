@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../_services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

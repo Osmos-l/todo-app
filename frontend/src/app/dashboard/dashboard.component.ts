@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
+import { AuthService } from '../_services/auth/auth.service';
+import { TaskService } from '../_services/task/task.service';
+import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,13 +11,21 @@ import { AuthService } from '../auth.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  tasks: any;
+
+  constructor(private authService: AuthService,
+              private taskService: TaskService) { }
 
   ngOnInit(): void {
+    this.taskService.getTasks()
+    .subscribe( tasks => {
+      this.tasks = tasks;
+      console.log( this.tasks );
+    } );
   }
 
   logout(): void {
-    this.auth.logout();
+    this.authService.logout();
   }
 
 }

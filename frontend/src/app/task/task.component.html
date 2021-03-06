@@ -1,1 +1,8 @@
-<p>task works!</p>
+<p>
+
+    <span>{{ task.name | titlecase  }}</span><br />
+    Active: {{ task.expired }}<br />
+    Created at: {{ task.created_at | date : 'short'}}<br />
+    Last update: {{ task.updated_at | date : 'short' }}<br />
+
+</p>

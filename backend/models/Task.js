@@ -11,4 +11,4 @@ const TaskSchema = mongoose.Schema( {
 
 TaskSchema.plugin( uniqueValidator );
 
-mongoose.model( "Task", TaskSchema );
+module.exports = mongoose.model( "Task", TaskSchema );

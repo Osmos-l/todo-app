@@ -21,7 +21,6 @@ export class AuthService {
    * TODO: Comment method role
    */
   public isAuth(): boolean {
-
     const token = localStorage.getItem('token');
     if ( token === null ) {
       return false;
@@ -32,17 +31,26 @@ export class AuthService {
 
   /**
    * TODO: Comment method role
+   * @returns 
+   */
+  public getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  /**
+   * TODO: Comment method role
    * @param username 
    * @param password 
    */
   public login( username: string, password: string): Observable<boolean> {
 
-    return this.http.post<{ token: string }>( API + "/login", {
+    return this.http.post<{ token: string, userId: string }>( API + "/login", {
       email: username,
       password: password
     }, this._options ).pipe(
       map( result => {
         localStorage.setItem('token', result.token);
+        localStorage.setItem('userId', result.userId);
         return true;
       })
     );
@@ -56,13 +64,12 @@ export class AuthService {
    */
   public signup( email: string, username: string, password: string): Observable<boolean> {
 
-    return this.http.post<{ token: string, userId: string }>( API + "/signup", {
+    return this.http.post( API + "/signup", {
       email: email,
       username: username,
       password: password
     }, this._options ).pipe(
       map( result => {
-        localStorage.setItem('userId', result.userId);
         return true;
       })
     );
