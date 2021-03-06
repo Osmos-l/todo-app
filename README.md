@@ -2,9 +2,9 @@
 Simple todo list app working with angular and nodejs to train myself.
 
 ## How to install
-- run `git clone`
+- run `git clone https://github.com/Osmos-l/todo-app.git`
 - move into clone/frontend
-- run `npm install` then `npm run https://github.com/Osmos-l/todo-app.git`
+- run `npm install` then `npm run`
 - launch application by `ng serve`
 - move into clone/backend
 - run `npm install` then `npm run`
