@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -13,7 +11,6 @@ import { TasklistComponent } from './tasklist/tasklist.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NewTaskComponent } from './task/new-task/new-task.component';
 
 import { AuthInterceptor } from './_interceptors/auth.interceptor';
 
@@ -25,12 +22,10 @@ import { AuthInterceptor } from './_interceptors/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    NewTaskComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     ReactiveFormsModule,
     HttpClientModule
   ],

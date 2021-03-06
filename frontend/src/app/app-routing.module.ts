@@ -5,7 +5,6 @@ import { AuthGuardService as AuthGuard } from './_services/auth/auth-guard.servi
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { NewTaskComponent } from './task/new-task/new-task.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,12 +12,6 @@ const routes: Routes = [
   { path: 'dashboard', 
     component: DashboardComponent,
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'dashboard/task/new',
-    component: NewTaskComponent,
-    canActivate: [AuthGuard]
-
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
