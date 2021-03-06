@@ -8,7 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { TaskComponent } from './task/task.component';
 import { TasklistComponent } from './tasklist/tasklist.component';
 import { LoginComponent } from './login/login.component';
@@ -21,7 +20,6 @@ import { AuthInterceptor } from './_interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     TaskComponent,
     TasklistComponent,
     LoginComponent,
