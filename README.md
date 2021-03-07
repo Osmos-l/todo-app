@@ -16,3 +16,6 @@ Simple todo list app working with angular and nodejs to train myself.
 - Ending frontend
 - Ending backend
 - Clone this project and make backend working with solidproject
+
+## Screenshots: 
+![Login](https://user-images.githubusercontent.com/36885114/110238992-e1ef6b80-7f44-11eb-985f-3edc05495758.png)
