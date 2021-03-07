@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
       .pipe( first() )
       .subscribe(
         result => this.router.navigate(['/dashboard']),
-        err => this.error = err.error.message
+        err => {
+          this.error = err.error.message;
+        }
       )
   }
 }

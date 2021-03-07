@@ -1,24 +1,34 @@
-<div *ngIf="error">
-    {{ error }}
+<div class="mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-5 text-center">
+    <div    *ngIf="error != ''"
+            class="bg-red-400 rounded text-white py-3 mb-5 shadow-md">
+        {{ error }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+    
+        <div class="mb-5">
+            <input type="text" 
+                    formControlName="username" 
+                    placeholder="exemple@gmail.com"
+                    required
+                    class="bg-gray-100 focus:border-gray-500 p-3 px-10 text-lg rounded focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent">
+        </div>
+
+        <div>
+            <input type="password" 
+                    formControlName="password" 
+                    placeholder="* * * * *"
+                    class="bg-gray-100 p-3 px-10 text-lg rounded focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent"
+                    required>
+        </div>
+        <br />
+        <button type="submit" 
+                [disabled]="!loginForm.valid"
+                class="bg-red-500 hover:bg-red-700 text-white py-2 px-6 text-center text-lg rounded font-semibold shadow-md">
+                Submit</button>
+    </form>
+
+    <a routerLink="/register"
+        class="font-light text-red-400 hover:text-red-600"
+    >Create account</a>
 </div>
-
-<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
-  
-    <label>
-        Email:
-        <input type="text" 
-                formControlName="username" 
-                required>
-    </label>
-
-    <label>
-        Password:
-        <input type="password" 
-                formControlName="password" 
-                required>
-    </label>
-    <br />
-    <button type="submit" [disabled]="!loginForm.valid">Submit</button>
-</form>
-
-<a routerLink="/register">Create account</a>
