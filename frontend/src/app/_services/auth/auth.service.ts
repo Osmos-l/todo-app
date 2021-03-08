@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-const jwtHelper = new JwtHelperService();
-const API = "http://127.0.0.1:3000/api/auth";
+const jwtHelper = new JwtHelperService(); 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private API = "http://127.0.0.1:3000/api/auth";
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -44,7 +44,7 @@ export class AuthService {
    */
   public login( username: string, password: string): Observable<boolean> {
 
-    return this.http.post<{ token: string, userId: string }>( API + "/login", {
+    return this.http.post<{ token: string, userId: string }>( this.API + "/login", {
       email: username,
       password: password
     }, this._options ).pipe(
@@ -64,7 +64,7 @@ export class AuthService {
    */
   public signup( email: string, username: string, password: string): Observable<boolean> {
 
-    return this.http.post( API + "/signup", {
+    return this.http.post( this.API + "/signup", {
       email: email,
       username: username,
       password: password
