@@ -1,4 +1,7 @@
-<p>Task list: </p>
-<app-task *ngFor="let task of tasks"
-    [task]="task">
-</app-task>
+<div class="md:max-w-2xl mx-auto mt-5">
+    <h3 class="font-medium text-xl ml-5">TODO List: </h3>
+    <app-task *ngFor="let task of tasks"
+        [task]="task"
+        class="mb-2">
+    </app-task>
+</div>

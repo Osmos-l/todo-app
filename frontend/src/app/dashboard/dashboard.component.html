@@ -1,5 +1,8 @@
-<h2>Welcome to your personnal dashboard !</h2>
+<h2 class="text-center font-medium text-lg">Welcome "toDefine" to your personnal dashboard !</h2>
 <app-task-list [tasks]="tasks" ></app-task-list>
 
-<a routerLink="/dashboard/task/new">New todotask</a>
-<button (click)="logout()">Logout</button>
+<div class="md:max-w-2xl mx-auto text-center mt-5">
+        <button (click)="logout()"
+                class="bg-red-500 hover:bg-red-700 text-white py-2 px-6 text-lg rounded font-semibold shadow-md">
+                Logout</button>
+</div>

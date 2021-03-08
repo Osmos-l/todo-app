@@ -15,4 +15,8 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onCheck(): void {
+    this.task.expired = !this.task.expired;
+    // TODO: Contact API
+  }
 }
