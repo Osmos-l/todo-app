@@ -1,4 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { TaskService } from '../_services/task/task.service';
+import { Task } from '../models/task.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -7,12 +10,28 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TasklistComponent implements OnInit {
 
-  @Input()
-    tasks: any[] = [];
+  tasks: Task[];
 
-  constructor() { }
+  constructor(private taskService: TaskService) {
+    this.tasks = [];
+
+    this.taskService.getUserLoggedTasks()
+    .subscribe(
+      tasks => {
+        this.tasks = tasks;
+      }
+    );
+
+   }
 
   ngOnInit(): void {
   }
 
+  deleteOne( toRemove: string ): void {
+      this.tasks = this.tasks.filter( task => {
+        return task._id !== toRemove;
+      } );
+
+      this.taskService.removeOneById( toRemove );
+  }
 }

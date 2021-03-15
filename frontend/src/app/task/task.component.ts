@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Task } from '../models/task.model';
+import { TaskService } from '../_services/task/task.service';
 
 @Component({
   selector: 'app-task',
@@ -7,16 +9,30 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TaskComponent implements OnInit {
 
+  @Output()
+    onDelete: EventEmitter<any> = new EventEmitter();
+
   @Input()
-    task: any;
+    task: Task = {
+      "_id": "-1",
+      "name": "Default task",
+      "owner": "-1",
+      "created_at": new Date,
+      "updated_at": new Date,
+      "expired": false
+    };
   
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
   }
 
-  onCheck(): void {
-    this.task.expired = !this.task.expired;
-    // TODO: Contact API
+  updateExpired(): void {
+    console.log( "HEY UPDATE !" );
+    this.taskService.editExpirationToOne( this.task );
+  }
+
+  delete(): void {
+    this.onDelete.emit( this.task._id );
   }
 }

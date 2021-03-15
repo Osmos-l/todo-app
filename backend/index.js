@@ -1,17 +1,3 @@
-/**
- * {
-    "user": {
-        "_id": "601c441967b9300e7c396101",
-        "username": "Osmos",
-        "email": "jordan.lcq1@gmail.com",
-        "password": "$2b$10$Kg/.39EGch0dzCisjyt49ep0GgcNi9tPOWIVj0y8kHuN3FcrvNztG",
-        "created_at": "2021-02-04T18:59:38.097Z",
-        "updated_at": "2021-02-04T18:59:38.097Z",
-        "__v": 0
-    }
-}
- */
-
 const http = require('http');
 const app = require('./app');
 

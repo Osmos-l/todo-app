@@ -4,22 +4,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { User } from '../../models/user.model';
 
 const jwtHelper = new JwtHelperService();
-const API = "http://127.0.0.1:3000/api/auth";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private API = "http://127.0.0.1:3000/api/auth";
 
   constructor(private http: HttpClient,
               private router: Router) { }
 
-  /**
-   * TODO: Comment method role
-   */
   public isAuth(): boolean {
     const token = localStorage.getItem('token');
     if ( token === null ) {
@@ -29,42 +27,27 @@ export class AuthService {
     return !jwtHelper.isTokenExpired(token);
   }
 
-  /**
-   * TODO: Comment method role
-   * @returns 
-   */
   public getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  /**
-   * TODO: Comment method role
-   * @param username 
-   * @param password 
-   */
   public login( username: string, password: string): Observable<boolean> {
 
-    return this.http.post<{ token: string, userId: string }>( API + "/login", {
+    return this.http.post<{ token: string, user: User }>( this.API + "/login", {
       email: username,
       password: password
     }, this._options ).pipe(
       map( result => {
         localStorage.setItem('token', result.token);
-        localStorage.setItem('userId', result.userId);
+        localStorage.setItem('user', JSON.stringify( result.user ) );
         return true;
       })
     );
   }
 
-  /**
-   * TODO: Comment method role
-   * @param email 
-   * @param username 
-   * @param password 
-   */
   public signup( email: string, username: string, password: string): Observable<boolean> {
 
-    return this.http.post( API + "/signup", {
+    return this.http.post( this.API + "/signup", {
       email: email,
       username: username,
       password: password
@@ -75,12 +58,10 @@ export class AuthService {
     );
   }
 
-  /**
-   * TODO: Comment method role
-   */
   public logout() {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
     this.router.navigate(['login']);
   }
+  
 }
