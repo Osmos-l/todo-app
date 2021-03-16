@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
 import { Task } from '../../models/task.model';
 import { User } from '../../models/user.model';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 
 
 @Injectable({
@@ -12,21 +13,17 @@ export class TaskService {
   private _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   private API = "http://127.0.0.1:3000/api/task";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthService) { }
 
   getUserLoggedTasks(): Observable<Task[]> {
-    const user = localStorage.getItem( 'user' );
+    const user = this.authService.getUser();
 
-    let _id;
     if ( user == null ) {
-      _id = "";
-    } else {
-      _id = JSON.parse( user )._id;
+      return EMPTY;
     }
 
-    const route = this.API + "/" + _id;
-
-    return this.http.get<Task[]>(route);
+    return this.http.get<Task[]>( `${this.API}/${user._id}` );
   }
 
   removeOneById( toRemove: string ): void {

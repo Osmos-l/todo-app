@@ -31,6 +31,18 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  public getUser(): User | null {
+    let user = localStorage.getItem('user');
+
+    if ( user == null ) {
+      return null;
+    }
+    else {
+      return <User>JSON.parse( user );
+    }
+
+  }
+
   public login( username: string, password: string): Observable<boolean> {
 
     return this.http.post<{ token: string, user: User }>( this.API + "/login", {

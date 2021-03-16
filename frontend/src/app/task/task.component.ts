@@ -28,7 +28,6 @@ export class TaskComponent implements OnInit {
   }
 
   updateExpired(): void {
-    console.log( "HEY UPDATE !" );
     this.taskService.editExpirationToOne( this.task );
   }
 

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AuthService } from '../_services/auth/auth.service';
-import { TaskService } from '../_services/task/task.service';
-import { Task } from '../models/task.model';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +9,25 @@ import { Task } from '../models/task.model';
 })
 export class DashboardComponent implements OnInit {
 
-  tasks: any;
+  logUser: User = {
+    "_id": "-1",
+    "email": "empty@email.com",
+    "password": "empty passw",
+    "username": "myUsername",
+    "created_at": new Date,
+    "updated_at": new Date,
+  };
 
-  constructor(private authService: AuthService,
-              private taskService: TaskService) { }
+  constructor(private authService: AuthService) { 
+    let logUser = this.authService.getUser();
+
+    if ( logUser == null ) {
+      this.authService.logout();
+    } else {
+      this.logUser = logUser;
+    }
+
+  }
 
   ngOnInit(): void {
   }
