@@ -1,4 +1,5 @@
 const Task = require( '../models/Task' );
+const TokenMiddleware = require( '../middleware/token' );
 const url = require( 'url' );
 
 exports.createTask = ( req, res, next ) => {
@@ -51,12 +52,13 @@ exports.getAllTask = ( req, res, next ) => {
 exports.deleteTask = ( req, res, next ) => {
     const toRemoveID = req.params.id;
 
-
     if ( !toRemoveID ) {
         return res.status(400).json({
             message: "Invalid task ID"
         });
     }
+
+    // TODO: Verify token.userId = toRemove.owner
 
     Task.remove( { _id: toRemoveID })
         .then( res => {
@@ -85,6 +87,8 @@ exports.updateTask = ( req, res, next ) => {
             message: "Invalid task ID"
         })
     }
+
+    // TODO: Verify token.userId = toRemove.owner
 
     Task.updateOne(
         { _id: toUpdateID },
