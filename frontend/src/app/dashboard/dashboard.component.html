@@ -1,6 +1,16 @@
-<h2 class="text-center font-medium text-lg">Welcome {{ logUser.username | titlecase }} to your personnal dashboard !</h2>
-<app-task-list
-        class=""></app-task-list>
+<nav class="w-full bg-white border py-5 mb-5 shadow-md">
+        <h1 class="text-center text-2xl">Welcome <span class="font-bold text-3xl">{{ logUser.username | titlecase }}, </span> on your personnal todo-list dashboard !</h1>
+</nav>
+<p class="text-center font-light mb-5">
+        <fa-icon [icon]="fire" size="3x" [classes]="['text-red-500','mr-2']"></fa-icon>
+        You have achieved {{purcentage | number: '1.0-0' }}% of your goals !
+        <fa-icon [icon]="fire" size="3x" [classes]="['text-red-500','ml-2']"></fa-icon>
+</p>
+<div class="task-container">
+        <app-task-list
+        class=""
+        (onPurcentageUpdate)="purcentageUpdate($event)"></app-task-list>
+</div>
 
 <div class="md:max-w-2xl mx-auto text-center mt-5">
         <button (click)="logout()"

@@ -12,6 +12,9 @@ export class TaskComponent implements OnInit {
   @Output()
     onDelete: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+    onUpdateExpired: EventEmitter<any> = new EventEmitter();
+
   @Input()
     task: Task = {
       "_id": "-1",
@@ -29,6 +32,7 @@ export class TaskComponent implements OnInit {
 
   updateExpired(): void {
     this.taskService.editExpirationToOne( this.task );
+    this.onUpdateExpired.emit();
   }
 
   delete(): void {

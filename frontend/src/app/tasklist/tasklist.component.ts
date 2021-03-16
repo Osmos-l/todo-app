@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TaskService } from '../_services/task/task.service';
 import { Task } from '../models/task.model';
 import { Observable } from 'rxjs';
@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 })
 export class TasklistComponent implements OnInit {
 
+  @Output()
+    onPurcentageUpdate: EventEmitter<any> = new EventEmitter();
+
   tasks: Task[];
 
   constructor(private taskService: TaskService) {
@@ -19,6 +22,7 @@ export class TasklistComponent implements OnInit {
     .subscribe(
       tasks => {
         this.tasks = tasks;
+        this.calculatePurcentageAchieved();
       }
     );
 
@@ -33,5 +37,21 @@ export class TasklistComponent implements OnInit {
       } );
 
       this.taskService.removeOneById( toRemove );
+
+      this.calculatePurcentageAchieved();
+  }
+
+  calculatePurcentageAchieved(): void {
+    console.log( "send update list" );
+    let nbAchieved = 0;
+    this.tasks.forEach( task => {
+      if ( task.expired ) {
+        nbAchieved++;
+      }
+    })
+
+    let purcentageAchieved = ( nbAchieved * 100 ) / this.tasks.length;
+
+    this.onPurcentageUpdate.emit( purcentageAchieved );
   }
 }

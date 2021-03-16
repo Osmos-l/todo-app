@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth/auth.service';
 import { User } from '../models/user.model';
+import { faGripfire } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,6 +9,8 @@ import { User } from '../models/user.model';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  fire = faGripfire;
 
   logUser: User = {
     "_id": "-1",
@@ -17,6 +20,8 @@ export class DashboardComponent implements OnInit {
     "created_at": new Date,
     "updated_at": new Date,
   };
+
+  purcentage: number = 0;
 
   constructor(private authService: AuthService) { 
     let logUser = this.authService.getUser();
@@ -34,6 +39,10 @@ export class DashboardComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  purcentageUpdate( purcentage: number ) {
+    this.purcentage = purcentage;
   }
 
 }

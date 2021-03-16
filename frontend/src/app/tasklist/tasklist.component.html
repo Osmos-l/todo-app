@@ -1,8 +1,8 @@
 <div class="md:max-w-2xl mx-auto mt-5 overflow-hidden" id="task-container">
-    <h3 class="font-medium text-xl ml-5">TODO List: </h3>
     <app-task *ngFor="let task of (tasks)"
         [task]="task"
         class="mb-2"
-        (onDelete)="deleteOne($event)">
+        (onDelete)="deleteOne($event)"
+        (onUpdateExpired)="calculatePurcentageAchieved()">
     </app-task>
 </div>
