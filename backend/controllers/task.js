@@ -58,17 +58,22 @@ exports.deleteTask = ( req, res, next ) => {
         });
     }
 
-    // TODO: Verify token.userId = toRemove.owner
+    const token = TokenMiddleware.getToken( req );
+    const tokenUserID = TokenMiddleware.getUserIDFromToken( token );
 
-    Task.remove( { _id: toRemoveID })
-        .then( res => {
-            return res.status(200).json( {} );
-        })
-        .catch(
-            error => {
-                return res.status(500).json({ message: 'Server error ' + error });
-            }
-        );
+    Task.findOneAndDelete( 
+        { _id: toRemoveID },
+        { filter: { owner: tokenUserID } }
+    ) 
+    .then( res => {
+        return res.status(200).json({});
+    })
+    .catch(
+        error => {
+            return res.status(500).json({ message: 'Server error ' + error });
+        }
+    );
+
 }
 
 exports.updateTask = ( req, res, next ) => {
@@ -88,15 +93,20 @@ exports.updateTask = ( req, res, next ) => {
         })
     }
 
-    // TODO: Verify token.userId = toRemove.owner
+    const token = TokenMiddleware.getToken( req );
+    const tokenUserID = TokenMiddleware.getUserIDFromToken( token );
 
-    Task.updateOne(
+    Task.findOneAndUpdate( 
         { _id: toUpdateID },
-        { $set: { expired } }
-    )
-    .then(
-        task => {
-            return res.status(200).json();
+        { filter: { owner: tokenUserID },
+          $set: { expired } }
+    ) 
+    .then( task => {
+        return res.status(200).json( task );
+    })
+    .catch(
+        error => {
+            return res.status(500).json({ message: 'Server error ' + error });
         }
     );
 

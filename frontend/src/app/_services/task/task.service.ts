@@ -29,7 +29,17 @@ export class TaskService {
   removeOneById( toRemove: string ): void {
     const userId = localStorage.getItem('userId');
 
-    this.http.delete( `${this.API}/${toRemove}` );
+    this.http.delete( `${this.API}/${toRemove}` )
+    .subscribe(
+      res => {
+        return true;
+      },
+      err => {
+        console.error( err );
+        return false;
+      }
+    );
+    
   }
 
   editExpirationToOne( toRemove: Task ): void {

@@ -4,8 +4,7 @@ const TokenMiddleware  = require('./token');
 
 module.exports = ( req, res, next ) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-       
+        const token = TokenMiddleware.getToken( req );
         const userId = TokenMiddleware.getUserIDFromToken( token );
 
         if ( req.body.userId && req.body.userId !== userId ) {
