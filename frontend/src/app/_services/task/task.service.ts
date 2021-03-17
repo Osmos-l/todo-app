@@ -26,9 +26,15 @@ export class TaskService {
     return this.http.get<Task[]>( `${this.API}/${user._id}` );
   }
 
-  removeOneById( toRemove: string ): void {
-    const userId = localStorage.getItem('userId');
+  create( task: Task ): Observable<Task> {
+    // TODO: Add user id
+    const owner = this.authService.getUser()?._id;
+    const name = task.name;
 
+    return this.http.post<Task>( this.API, { name,  owner } );
+  }
+
+  removeOneById( toRemove: string ): void {
     this.http.delete( `${this.API}/${toRemove}` )
     .subscribe(
       res => {

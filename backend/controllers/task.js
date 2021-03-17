@@ -5,6 +5,8 @@ const url = require( 'url' );
 exports.createTask = ( req, res, next ) => {
     const { name, owner } = req.body;
 
+    console.log( req.body );
+
     if ( !name || !owner ) {
         return res.status(400).json({ message: 'Missing parameters' });
     }
@@ -17,10 +19,7 @@ exports.createTask = ( req, res, next ) => {
 
     task.save()
         .then( () => {
-            // TODO: Return task
-            return res.status(201).json({
-                task
-            });
+            return res.status(201).json( task );
         })
         .catch( (error) => {
             return res.status(400).json({

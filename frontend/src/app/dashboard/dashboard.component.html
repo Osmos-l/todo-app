@@ -6,11 +6,9 @@
         You have achieved {{purcentage | number: '1.0-0' }}% of your goals !
         <fa-icon [icon]="fire" size="3x" [classes]="['text-red-500','ml-2']"></fa-icon>
 </p>
-<div class="task-container">
-        <app-task-list
+<app-task-list
         class=""
         (onPurcentageUpdate)="purcentageUpdate($event)"></app-task-list>
-</div>
 
 <div class="md:max-w-2xl mx-auto text-center mt-5">
         <button (click)="logout()"

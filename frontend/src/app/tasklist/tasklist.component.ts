@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TaskService } from '../_services/task/task.service';
 import { Task } from '../models/task.model';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
@@ -14,8 +15,10 @@ export class TasklistComponent implements OnInit {
     onPurcentageUpdate: EventEmitter<any> = new EventEmitter();
 
   tasks: Task[];
+  taskForm: FormGroup;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,
+              private fb: FormBuilder) {
     this.tasks = [];
 
     this.taskService.getUserLoggedTasks()
@@ -25,7 +28,11 @@ export class TasklistComponent implements OnInit {
         this.calculatePurcentageAchieved();
       }
     );
-
+    
+    this.taskForm = this.fb.group({
+      "name": ["", Validators.required]
+    });
+    
    }
 
   ngOnInit(): void {
@@ -63,5 +70,17 @@ export class TasklistComponent implements OnInit {
     let purcentageAchieved = ( nbAchieved * 100 ) / this.tasks.length;
 
     this.onPurcentageUpdate.emit( purcentageAchieved );
+  }
+  
+
+  onFormSubmit(): void {
+    this.taskService.create( this.taskForm.value )
+    .subscribe(
+      task => {
+        this.tasks.push( task );
+      },
+      err => console.error( err )
+    );
+
   }
 }
