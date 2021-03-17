@@ -32,7 +32,7 @@ export class TaskComponent implements OnInit {
 
   updateExpired(): void {
     this.taskService.editExpirationToOne( this.task );
-    this.onUpdateExpired.emit();
+    this.onUpdateExpired.emit( this.task._id );
   }
 
   delete(): void {

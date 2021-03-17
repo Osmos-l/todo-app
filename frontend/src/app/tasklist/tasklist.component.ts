@@ -41,9 +41,19 @@ export class TasklistComponent implements OnInit {
       this.calculatePurcentageAchieved();
   }
 
+  updateOneTask( toUpdate: string ): void {
+    this.tasks.forEach( task => {
+      if ( task._id == toUpdate ) {
+        task.expired = !task.expired;
+      }
+    })
+
+    this.calculatePurcentageAchieved();
+  }
+
   calculatePurcentageAchieved(): void {
-    console.log( "send update list" );
     let nbAchieved = 0;
+
     this.tasks.forEach( task => {
       if ( task.expired ) {
         nbAchieved++;
