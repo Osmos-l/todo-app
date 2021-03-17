@@ -11,8 +11,8 @@ exports.getUserIDFromToken = ( token ) => {
     try {
         decodedToken = jwt.verify( token, config.token );
     } catch( error ) {
-        throw false;
+        throw error;
     }
 
-    return userId = decodedToken.userId;
+    return decodedToken.userId;
 }
